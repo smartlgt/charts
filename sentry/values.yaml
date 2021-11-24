@@ -596,6 +596,11 @@ filestore:
       ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
       ##   GKE, AWS & OpenStack)
       ##
+      # annotations: {}
+      ## selector:
+      ##   matchLabels:
+      ##     app: my-app
+      # selector: {}
       # storageClass: "-"
       accessMode: ReadWriteOnce
       size: 10Gi

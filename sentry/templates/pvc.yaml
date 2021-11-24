@@ -9,12 +9,18 @@ metadata:
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
     release: "{{ .Release.Name }}"
     heritage: "{{ .Release.Service }}"
+    {{- if .Values.filestore.filesystem.persistence.annotations }}
+    annotations: {{- toYaml .Values.filestore.filesystem.persistence.annotations | nindent 6 }}
+    {{- end }}
 spec:
   accessModes:
     - {{ .Values.filestore.filesystem.persistence.accessMode | quote }}
   resources:
     requests:
       storage: {{ .Values.filestore.filesystem.persistence.size | quote }}
+  {{- if .Values.filestore.filesystem.persistence.selector }}
+  selector: {{- toYaml .Values.filestore.filesystem.persistence.selector | nindent 4 }}
+  {{- end }}
 {{- if .Values.filestore.filesystem.persistence.storageClass }}
 {{- if (eq "-" .Values.filestore.filesystem.persistence.storageClass) }}
   storageClassName: ""
